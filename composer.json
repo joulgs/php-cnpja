@@ -1,0 +1,29 @@
+{
+    "name":"joulgs/php-cnpja",
+    "description":"Connection with the CNPJá API in PHP",
+    "type":"library",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "cnpjá",
+        "api"
+    ],
+    "homepage":"https://github.com/joulgs/php-cnpja",
+    "repository":"https://github.com/joulgs/php-cnpja",
+    "bugs":"https://github.com/joulgs/php-cnpja/issues",
+    "version":"0.0.1",
+    "authors": [
+        {
+            "name": "Jonathas Soares",
+            "email": "joul.gs@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JGS\\CNPJa\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0"
+    }
+}
