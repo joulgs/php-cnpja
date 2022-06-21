@@ -55,4 +55,81 @@ class CNPJaInterface
     {
         return $this->response->company->name;
     }
+
+    public function getAddress(): object
+    {
+        return $this->response->address;
+    }
+
+    public function getPhoneFormatted(): String
+    {
+        $p1 = substr($this->response->phones[0]->number, 0, 4);
+        $p2 = substr($this->response->phones[0]->number, 4, 4);
+        return "({$this->response->phones[0]->area}) {$p1}-{$p2}";
+    }
+
+    public function getPhone(): String
+    {
+        return $this->response->phones[0]->area.$this->response->phones[0]->number;
+    }
+
+    public function getCnp(): String
+    {
+        return $this->cnp;
+    }
+
+    public function getResponse(): object
+    {
+        return $this->response;
+    }
+
+    public function getEmail(): String
+    {
+        return $this->response->emails[0]->address;
+    }
+
+    public function getState(): String
+    {
+        return $this->response->address->state;
+    }
+
+    public function getCity(): String
+    {
+        return $this->response->address->city;
+    }
+
+    public function getStreet(): String
+    {
+        return $this->response->address->street;
+    }
+
+    public function getNumber(): String
+    {
+        return $this->response->address->number;
+    }
+    
+    public function getDistrict(): String
+    {
+        return $this->response->address->district;
+    }
+
+    public function getZipCode(): String
+    {
+        return $this->response->address->zip;
+    }
+    
+    public function getCountry(): String
+    {
+        return $this->response->address->country->name;
+    }
+
+    public function getStatus(): String
+    {
+        return $this->response->status->text;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->response->status->id === 2 ? true : false;
+    }
 }
