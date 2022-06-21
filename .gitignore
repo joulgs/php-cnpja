@@ -1,1 +1,4 @@
 vendor/*
+teste.php
+.env
+response_example.json
