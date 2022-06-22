@@ -11,7 +11,7 @@
     "homepage":"https://github.com/joulgs/php-cnpja",
     "repository":"https://github.com/joulgs/php-cnpja",
     "bugs":"https://github.com/joulgs/php-cnpja/issues",
-    "version":"1.0.0",
+    "version":"1.0.0-beta",
     "authors": [
         {
             "name": "Jonathas Soares",
