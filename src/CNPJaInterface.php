@@ -73,7 +73,7 @@ class CNPJaInterface
         return $this->response->phones[0]->area.$this->response->phones[0]->number;
     }
 
-    public function getCnp(): String
+    public function getCnpj(): String
     {
         return $this->cnp;
     }
