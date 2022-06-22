@@ -46,14 +46,19 @@ class CNPJaInterface
         return true;
     }
 
-    public function getFounded(): String
+    public function getFounded(): string
     {
         return $this->response->founded;
     }
 
-    public function getName(): String
+    public function getName(): string
     {
         return $this->response->company->name;
+    }
+
+    public function getAlias(): string | null
+    {
+        return isset($this->response->alias) ? $this->response->alias : null;
     }
 
     public function getAddress(): object
@@ -61,19 +66,19 @@ class CNPJaInterface
         return $this->response->address;
     }
 
-    public function getPhoneFormatted(): String
+    public function getPhoneFormatted(): string
     {
         $p1 = substr($this->response->phones[0]->number, 0, 4);
         $p2 = substr($this->response->phones[0]->number, 4, 4);
         return "({$this->response->phones[0]->area}) {$p1}-{$p2}";
     }
 
-    public function getPhone(): String
+    public function getPhone(): string
     {
         return $this->response->phones[0]->area.$this->response->phones[0]->number;
     }
 
-    public function getCnpj(): String
+    public function getCnpj(): string
     {
         return $this->cnp;
     }
@@ -83,47 +88,52 @@ class CNPJaInterface
         return $this->response;
     }
 
-    public function getEmail(): String
+    public function getEmail(): string | null
     {
-        return $this->response->emails[0]->address;
+        return isset($this->response->emails[0]->address) ? $this->response->emails[0]->address : null;
     }
 
-    public function getState(): String
+    public function getState(): string
     {
         return $this->response->address->state;
     }
 
-    public function getCity(): String
+    public function getCity(): string
     {
         return $this->response->address->city;
     }
 
-    public function getStreet(): String
+    public function getStreet(): string
     {
         return $this->response->address->street;
     }
 
-    public function getNumber(): String
+    public function getNumber(): string
     {
         return $this->response->address->number;
     }
     
-    public function getDistrict(): String
+    public function getDistrict(): string
     {
         return $this->response->address->district;
     }
 
-    public function getZipCode(): String
+    public function getComplement(): string | null
+    {
+        return isset($this->response->address->details) ? $this->response->address->details : null;
+    }
+
+    public function getZipCode(): string
     {
         return $this->response->address->zip;
     }
     
-    public function getCountry(): String
+    public function getCountry(): string
     {
         return $this->response->address->country->name;
     }
 
-    public function getStatus(): String
+    public function getStatus(): string
     {
         return $this->response->status->text;
     }
@@ -131,5 +141,20 @@ class CNPJaInterface
     public function isActive(): bool
     {
         return $this->response->status->id === 2 ? true : false;
+    }
+
+    public function getCNAE(): int
+    {
+        return $this->response->mainActivity->id;
+    }
+
+    public function getMunicipalityCode(): int
+    {
+        return $this->response->address->municipality;
+    }
+
+    public function isHead(): bool
+    {
+        return $this->response->head;
     }
 }
