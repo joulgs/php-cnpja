@@ -61,7 +61,7 @@ class CNPJaInterface
         return isset($this->response->alias) ? $this->response->alias : null;
     }
 
-    public function getAddress(): object
+    public function getAddress() 
     {
         return $this->response->address;
     }
@@ -83,7 +83,7 @@ class CNPJaInterface
         return $this->cnp;
     }
 
-    public function getResponse(): object
+    public function getResponse()
     {
         return $this->response;
     }
@@ -156,5 +156,43 @@ class CNPJaInterface
     public function isHead(): bool
     {
         return $this->response->head;
+    }
+
+    public function getMainCnaeCode(): string
+    {
+        return $this->response->mainActivity->id;
+    }
+
+    public function getMainCnaeDescription(): string
+    {
+        return $this->response->mainActivity->text;
+    }
+
+    public function getSideCnaeArray(): array
+    {
+        $object = $this->response->sideActivities;
+
+        $array = [];
+        
+        foreach ($object as $key => $value) {
+            $array[] = Array('code' => $value->id, 'description' => $value->text);
+        }
+
+        return $array;
+    }
+
+    public function getAllCnaeArray(): array
+    {
+        $mainCnae = $this->response->mainActivity;
+
+        $array[] = Array('code' => $mainCnae->id, 'description' => $mainCnae->text, 'main' => true);
+
+        $sideCnae = $this->response->sideActivities;
+
+        foreach ($sideCnae as $key => $value) {
+            $array[] = Array('code' => $value->id, 'description' => $value->text, 'main' => false);
+        }
+
+        return $array;
     }
 }

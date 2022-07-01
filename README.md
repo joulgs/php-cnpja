@@ -58,3 +58,7 @@ echo $company->getResponse()->company->name;
 | getMunicipalityCode() | Get the municipality code of the company |
 | isHead() | Returns true if the company is a head company |
 | getResponse() | Returns the entire response object |
+| getMainCnaeCode() | Get the main CNAE code of the company |
+| getMainCnaeDescription() | Get the main CNAE description of the company |
+| getSideCnaeArray() | Get the side CNAE array of the company |
+| getAllCnaeArray() | Get the all CNAE array of the company |
