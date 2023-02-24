@@ -56,7 +56,7 @@ class CNPJaInterface
         return $this->response->company->name;
     }
 
-    public function getAlias(): string | null
+    public function getAlias()
     {
         return isset($this->response->alias) ? $this->response->alias : null;
     }
@@ -88,7 +88,7 @@ class CNPJaInterface
         return $this->response;
     }
 
-    public function getEmail(): string | null
+    public function getEmail()
     {
         return isset($this->response->emails[0]->address) ? $this->response->emails[0]->address : null;
     }
@@ -118,7 +118,7 @@ class CNPJaInterface
         return $this->response->address->district;
     }
 
-    public function getComplement(): string | null
+    public function getComplement()
     {
         return isset($this->response->address->details) ? $this->response->address->details : null;
     }
