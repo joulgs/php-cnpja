@@ -103,6 +103,11 @@ class CNPJaInterface
         return $this->response->address->city;
     }
 
+    public function getCityCode(): string
+    {
+        return $this->response->address->municipality;
+    }
+
     public function getStreet(): string
     {
         return $this->response->address->street;

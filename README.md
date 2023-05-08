@@ -46,6 +46,7 @@ echo $company->getResponse()->company->name;
 | getEmail() | Get the email of the company |
 | getState() | Get the state of the company |
 | getCity() | Get the city of the company |
+| getCityCode() | Get the city IBGE code |
 | getStreet() | Get the street of the company | 
 | getNumber() | Get the address number of the company |
 | getDistrict() | Get the district of the company |
