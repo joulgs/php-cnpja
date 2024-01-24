@@ -8,21 +8,22 @@ class CNPJaInterface
     private $url = 'https://api.cnpja.com/office/';
     private $cnp = null;
     private $response = null;
+    private $isValid = false;
 
     public function __construct($token, $cnp)
     {
         $this->token = trim($token);
-        $this->cnp = preg_replace('/\D/' , '', trim($cnp));
-        
+        $this->cnp = preg_replace('/\D/', '', trim($cnp));
+
         $this->doResearch();
     }
 
-    private function doResearch(): bool
+    private function doResearch(): void
     {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $this->url.$this->cnp,
+            CURLOPT_URL => $this->url . $this->cnp,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -30,7 +31,7 @@ class CNPJaInterface
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
-                "authorization: ".$this->token,
+                "authorization: " . $this->token,
             ),
         ));
 
@@ -39,11 +40,18 @@ class CNPJaInterface
 
         curl_close($curl);
 
-        if ($err)
-            return false;
-        
-        $this->response = json_decode($response);
-        return true;
+        if ($err) {
+            $this->isValid = false;
+        } else {
+            $response = json_decode($response);
+
+            if (isset($response->code) && $response->code == 404) {
+                $this->isValid = false;
+            } else {
+                $this->response = $response;
+                $this->isValid = true;
+            }
+        }
     }
 
     public function getFounded(): string
@@ -61,7 +69,7 @@ class CNPJaInterface
         return isset($this->response->alias) ? $this->response->alias : null;
     }
 
-    public function getAddress() 
+    public function getAddress()
     {
         return $this->response->address;
     }
@@ -75,7 +83,7 @@ class CNPJaInterface
 
     public function getPhone(): string
     {
-        return $this->response->phones[0]->area.$this->response->phones[0]->number;
+        return $this->response->phones[0]->area . $this->response->phones[0]->number;
     }
 
     public function getCnpj(): string
@@ -117,7 +125,7 @@ class CNPJaInterface
     {
         return $this->response->address->number;
     }
-    
+
     public function getDistrict(): string
     {
         return $this->response->address->district;
@@ -132,7 +140,7 @@ class CNPJaInterface
     {
         return $this->response->address->zip;
     }
-    
+
     public function getCountry(): string
     {
         return $this->response->address->country->name;
@@ -178,9 +186,9 @@ class CNPJaInterface
         $object = $this->response->sideActivities;
 
         $array = [];
-        
+
         foreach ($object as $key => $value) {
-            $array[] = Array('code' => $value->id, 'description' => $value->text);
+            $array[] = array('code' => $value->id, 'description' => $value->text);
         }
 
         return $array;
@@ -190,14 +198,19 @@ class CNPJaInterface
     {
         $mainCnae = $this->response->mainActivity;
 
-        $array[] = Array('code' => $mainCnae->id, 'description' => $mainCnae->text, 'main' => true);
+        $array[] = array('code' => $mainCnae->id, 'description' => $mainCnae->text, 'main' => true);
 
         $sideCnae = $this->response->sideActivities;
 
         foreach ($sideCnae as $key => $value) {
-            $array[] = Array('code' => $value->id, 'description' => $value->text, 'main' => false);
+            $array[] = array('code' => $value->id, 'description' => $value->text, 'main' => false);
         }
 
         return $array;
+    }
+
+    public function isValid(): bool
+    {
+        return $this->isValid;
     }
 }
