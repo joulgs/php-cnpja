@@ -76,9 +76,13 @@ class CNPJaInterface
 
     public function getPhoneFormatted(): string
     {
-        $p1 = substr($this->response->phones[0]->number, 0, 4);
-        $p2 = substr($this->response->phones[0]->number, 4, 4);
-        return "({$this->response->phones[0]->area}) {$p1}-{$p2}";
+        if (isset($this->response->phones[0])) {
+            $p1 = substr($this->response->phones[0]->number, 0, 4);
+            $p2 = substr($this->response->phones[0]->number, 4, 4);
+            return "({$this->response->phones[0]->area}) {$p1}-{$p2}";
+        } else {
+            return '';
+        }
     }
 
     public function getPhone(): string
