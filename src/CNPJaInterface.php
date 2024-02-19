@@ -85,9 +85,9 @@ class CNPJaInterface
         }
     }
 
-    public function getPhone(): string
+    public function getPhone(): string | null
     {
-        return $this->response->phones[0]->area . $this->response->phones[0]->number;
+        return isset($this->response->phones[0]->area) && isset($this->response->phones[0]->number) ? $this->response->phones[0]->area . $this->response->phones[0]->number : null;
     }
 
     public function getCnpj(): string
