@@ -18,7 +18,7 @@ class CNPJaInterface
         $this->doResearch();
     }
 
-    private function doResearch(): void
+    private function doResearch()
     {
         $curl = curl_init();
 
@@ -54,12 +54,12 @@ class CNPJaInterface
         }
     }
 
-    public function getFounded(): string
+    public function getFounded()
     {
         return $this->response->founded;
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->response->company->name;
     }
@@ -74,7 +74,7 @@ class CNPJaInterface
         return $this->response->address;
     }
 
-    public function getPhoneFormatted(): string
+    public function getPhoneFormatted()
     {
         if (isset($this->response->phones[0])) {
             $p1 = substr($this->response->phones[0]->number, 0, 4);
@@ -85,12 +85,12 @@ class CNPJaInterface
         }
     }
 
-    public function getPhone(): string | null
+    public function getPhone()
     {
         return isset($this->response->phones[0]->area) && isset($this->response->phones[0]->number) ? $this->response->phones[0]->area . $this->response->phones[0]->number : null;
     }
 
-    public function getCnpj(): string
+    public function getCnpj()
     {
         return $this->cnp;
     }
@@ -105,32 +105,32 @@ class CNPJaInterface
         return isset($this->response->emails[0]->address) ? $this->response->emails[0]->address : null;
     }
 
-    public function getState(): string
+    public function getState()
     {
         return $this->response->address->state;
     }
 
-    public function getCity(): string
+    public function getCity()
     {
         return $this->response->address->city;
     }
 
-    public function getCityCode(): string
+    public function getCityCode()
     {
         return $this->response->address->municipality;
     }
 
-    public function getStreet(): string
+    public function getStreet()
     {
         return $this->response->address->street;
     }
 
-    public function getNumber(): string
+    public function getNumber()
     {
         return $this->response->address->number;
     }
 
-    public function getDistrict(): string
+    public function getDistrict()
     {
         return $this->response->address->district;
     }
@@ -140,52 +140,52 @@ class CNPJaInterface
         return isset($this->response->address->details) ? $this->response->address->details : null;
     }
 
-    public function getZipCode(): string
+    public function getZipCode()
     {
         return $this->response->address->zip;
     }
 
-    public function getCountry(): string
+    public function getCountry()
     {
         return $this->response->address->country->name;
     }
 
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->response->status->text;
     }
 
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->response->status->id === 2 ? true : false;
     }
 
-    public function getCNAE(): int
+    public function getCNAE()
     {
         return $this->response->mainActivity->id;
     }
 
-    public function getMunicipalityCode(): int
+    public function getMunicipalityCode()
     {
         return $this->response->address->municipality;
     }
 
-    public function isHead(): bool
+    public function isHead()
     {
         return $this->response->head;
     }
 
-    public function getMainCnaeCode(): string
+    public function getMainCnaeCode()
     {
         return $this->response->mainActivity->id;
     }
 
-    public function getMainCnaeDescription(): string
+    public function getMainCnaeDescription()
     {
         return $this->response->mainActivity->text;
     }
 
-    public function getSideCnaeArray(): array
+    public function getSideCnaeArray()
     {
         $object = $this->response->sideActivities;
 
@@ -198,7 +198,7 @@ class CNPJaInterface
         return $array;
     }
 
-    public function getAllCnaeArray(): array
+    public function getAllCnaeArray()
     {
         $mainCnae = $this->response->mainActivity;
 
@@ -213,7 +213,7 @@ class CNPJaInterface
         return $array;
     }
 
-    public function isValid(): bool
+    public function isValid()
     {
         return $this->isValid;
     }
